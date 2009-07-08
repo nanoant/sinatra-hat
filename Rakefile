@@ -5,10 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "sinatra-hat"
-    gem.summary = %Q{TODO}
+    gem.description = "Sinatra Ruby gem extensions for gettext, caching, reloading, etc."
+    gem.summary = "Sinatra Ruby gem extensions for gettext, caching, reloading, etc."
     gem.email = "ono@java.pl"
     gem.homepage = "http://github.com/nanoant/sinatra-hat"
     gem.authors = ["Adam Strzelecki"]
+    gem.files = FileList['lib/**/*.rb', 'bin/*', '[A-Z]*', 'test/**/*'].to_a
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 
