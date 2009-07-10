@@ -1,9 +1,10 @@
 module GetText
   class Reloader < ::Rack::Reloader
-    def initialize(app, cooldown = 10)
-      @po = Dir.glob(File.join(File.dirname(__FILE__), '..', 'locale', '**', '*.po'))
-      @mo = Dir.glob(File.join(File.dirname(__FILE__), '..', 'locale', '**', '*.mo'))
-      @pot = File.join(File.dirname(__FILE__), '..', 'locale', 'rbigg.pot') # Used for locking
+    def initialize(app, path, cooldown=10)
+      @path = path
+      @po = Dir.glob(File.join(@path, '**', '*.po'))
+      @mo = Dir.glob(File.join(@path, '**', '*.mo'))
+      @pot = File.join(@path, 'rbigg.pot') # Used for locking
       # If there are not translations, give up
       cooldown = nil unless @po && @mo && @po.size > 0 && @mo.size > 0
       super(app, cooldown, Stat)
@@ -28,12 +29,12 @@ module GetText
             found, mstat = safe_stat(@mo.first)
             if found && mstat && mstat.mtime == stat.mtime
               require 'gettext/tools'
-              Dir.chdir File.join(File.dirname(__FILE__), '..') do
-                GetText.create_mofiles(:po_root => 'locale', :mo_root => 'locale')
+              Dir.chdir @path do
+                GetText.create_mofiles(:po_root => '.', :mo_root => '.')
               end
             end
             # Reload whole translation
-            FastGettext.add_text_domain(FastGettext.text_domain, :path => File.join(File.dirname(__FILE__), '..', 'locale'))
+            FastGettext.add_text_domain(FastGettext.text_domain, :path => @path)
             FastGettext.current_cache = {}
           end
         end
