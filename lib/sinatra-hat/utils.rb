@@ -47,22 +47,6 @@ class Time
   def noon
     midnight + 12.hours
   end
-  def ago
-    s = (Time.now - self).round
-    if (m = s.div(60)) > 0
-      if (h = m.div(60)) > 0
-        if (d = h.div(24)) > 0
-          "#{d} " + n_('day', 'days', d)
-        else
-          "#{h} " + n_('hour', 'hours', h)
-        end
-      else
-        "#{m} " + n_('minute', 'minutes', m)
-      end
-    else
-      "#{s} " + n_('second', 'seconds', s)
-    end
-  end
 end
 
 class String
