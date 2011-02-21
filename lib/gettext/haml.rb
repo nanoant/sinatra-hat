@@ -4,8 +4,8 @@
 
 class Haml::Engine
   # Inject _ gettext into plain text and tag plain text calls
-  def push_plain(text)
-    super(_(text))
+  def push_plain(text, options = {})
+    super(_(text), options)
   end
   def parse_tag(line)
     tag_name, attributes, attributes_hashes, object_ref, nuke_outer_whitespace,

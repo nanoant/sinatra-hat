@@ -2,7 +2,7 @@
 # http://pastie.org/445297
 
 require 'gettext/tools/rgettext'
-require 'gettext/parser/ruby'
+require 'gettext/tools/parser/ruby'
 require 'haml'
 
 class String
@@ -23,7 +23,7 @@ class Haml::Engine
   end
   # Overriden function that producted Haml plain text
   # Injects gettext call for plain text action.
-  def push_plain(text)
+  def push_plain(text, options = {})
     @precompiled << "_('#{text.escape_single_quotes}')\n"
   end
   def push_flat(line)
@@ -40,6 +40,9 @@ class Haml::Engine
   def close_filtered(filter)
     @gettext_filters.pop
     super
+  end
+  def flush_merged_text
+    # We override this method, becuase code generated here confuses GetText's Ruby parser
   end
 end
 
