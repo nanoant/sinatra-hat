@@ -12,7 +12,8 @@ It adds following functions to your *Sinatra* project:
 Setup
 =====
 ### 1. Install
-    sudo gem install nanoant-sinatra-hat -s http://gems.github.com/
+
+    sudo gem install sinatra-hat
 
 Or from source:
 
