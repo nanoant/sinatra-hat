@@ -29,6 +29,9 @@ class Integer
   def ago
     Time.now - self
   end
+  def forth
+    Time.now + self
+  end
 end
 
 class Time
